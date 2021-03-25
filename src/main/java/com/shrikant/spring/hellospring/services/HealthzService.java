@@ -4,17 +4,16 @@ import com.microsoft.applicationinsights.TelemetryClient;
 import com.shrikant.spring.hellospring.aspects.ResourceOwner;
 import com.shrikant.spring.hellospring.aspects.ResourceType;
 import com.shrikant.spring.hellospring.aspects.TrackDependency;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 
-@Service
+@Component
 public class HealthzService {
 
-  private final TelemetryClient telemetryClient;
+//  private final TelemetryClient telemetryClient;
 
-  @Autowired
+  //@Autowired
   public HealthzService(TelemetryClient telemetryClient) {
-    this.telemetryClient = telemetryClient;
+//    this.telemetryClient = telemetryClient;
   }
 
   @TrackDependency(

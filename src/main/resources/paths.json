@@ -1,0 +1,10 @@
+{
+  "paths": {
+    "firstName": {
+      "fieldPath": "document/firstName"
+    },
+    "lastName": {
+      "fieldPath": "document/lastName"
+    }
+  }
+}
