@@ -3,9 +3,12 @@ package com.shrikant.spring.hellospring.configs;
 import com.microsoft.applicationinsights.TelemetryClient;
 import com.microsoft.applicationinsights.TelemetryConfiguration;
 import com.shrikant.spring.hellospring.aspects.TrackDependencyAspect;
+import com.shrikant.spring.hellospring.filters.Slf4jMdcFilter;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.Ordered;
 
 @Configuration
 public class HelloSpringConfig {
@@ -33,6 +36,17 @@ public class HelloSpringConfig {
     telemetryConfiguration.setRoleName(appName);
     setupTrackDependencyAspect(telemetryClient, appName);
     return telemetryKey;
+  }
+
+  @Bean
+  public FilterRegistrationBean<Slf4jMdcFilter> mdc() {
+    FilterRegistrationBean registration = new FilterRegistrationBean<Slf4jMdcFilter>();
+    registration.setFilter(new Slf4jMdcFilter());
+    registration.addUrlPatterns("/*");
+    registration.setName("Slf4jMdcFilter");
+    registration.setOrder(Ordered.HIGHEST_PRECEDENCE + 10);
+
+    return registration;
   }
 
   public static void setupTrackDependencyAspect(TelemetryClient telemetryClient, String appName) {
